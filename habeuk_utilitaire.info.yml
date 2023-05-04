@@ -1,0 +1,5 @@
+name: habeuk utilitaire
+type: module
+description: Contient des fonctionnalitées additionnelle.
+package: Custom
+core_version_requirement: ^9 || ^10

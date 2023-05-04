@@ -1,0 +1,6 @@
+habeuk_utilitaire.settings_form:
+  title: 'habeuk utilitaire'
+  description: 'Configure habeuk utilitaire.'
+  parent: system.admin_config_system
+  route_name: habeuk_utilitaire.settings_form
+  weight: 10

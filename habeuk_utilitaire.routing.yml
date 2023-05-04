@@ -1,0 +1,15 @@
+habeuk_utilitaire.example:
+  path: '/habeuk-utilitaire/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\habeuk_utilitaire\Controller\HabeukUtilitaireController::build'
+  requirements:
+    _permission: 'access content'
+
+habeuk_utilitaire.settings_form:
+  path: '/admin/config/system/habeuk-utilitaire'
+  defaults:
+    _title: 'habeuk utilitaire settings'
+    _form: 'Drupal\habeuk_utilitaire\Form\SettingsForm'
+  requirements:
+    _permission: 'administer habeuk_utilitaire configuration'
