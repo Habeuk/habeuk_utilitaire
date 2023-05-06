@@ -1,6 +1,58 @@
 <?php
 
 /**
+ *
  * @file
  * Primary module hooks for habeuk utilitaire module.
  */
+
+/**
+ *
+ * @param array $fields
+ * @param array $context
+ */
+function habeuk_utilitaire_inline_entity_form_table_fields_alter(array &$fields, array $context) {
+  if ($context['entity_type'] == 'paragraph') {
+    $fields['id'] = [
+      'type' => 'field',
+      'label' => t('ID'),
+      'weight' => 0
+    ];
+    $fields['callback_layout_edit'] = [
+      'type' => 'callback',
+      'label' => t('Edit config'),
+      'callback' => '\Drupal\habeuk_utilitaire\HabeukUtilitaire::getRouteToedit',
+      'weight' => 10
+    ];
+  }
+  elseif ($context['entity_type'] == 'block_content') {
+    $fields['id'] = [
+      'type' => 'field',
+      'label' => t('ID'),
+      'weight' => 0
+    ];
+    $fields['type'] = [
+      'type' => 'field',
+      'label' => 'Type',
+      'weight' => 0
+    ];
+  }
+  elseif ($context['entity_type'] == 'node') {
+    $fields['nid'] = [
+      'type' => 'field',
+      'label' => t('ID'),
+      'weight' => 0
+    ];
+    $fields['type'] = [
+      'type' => 'field',
+      'label' => 'Type',
+      'weight' => 0
+    ];
+    $fields['callback_layout_url'] = [
+      'type' => 'callback',
+      'label' => t('edition externe'),
+      'callback' => '\Drupal\habeuk_utilitaire\HabeukUtilitaire::manageNode',
+      'weight' => 10
+    ];
+  }
+}

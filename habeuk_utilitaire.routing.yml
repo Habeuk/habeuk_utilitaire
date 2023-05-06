@@ -13,3 +13,12 @@ habeuk_utilitaire.settings_form:
     _form: 'Drupal\habeuk_utilitaire\Form\SettingsForm'
   requirements:
     _permission: 'administer habeuk_utilitaire configuration'
+    
+    
+entity.paragraph.canonical:
+  path: '/paragraph/{paragraph}'
+  defaults:
+    _entity_view: 'paragraph'
+    _title: 'paragraph view canonical'
+  requirements:
+    _role: 'administrator'
