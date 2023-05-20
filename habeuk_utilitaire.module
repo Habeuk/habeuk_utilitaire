@@ -56,3 +56,6 @@ function habeuk_utilitaire_inline_entity_form_table_fields_alter(array &$fields,
     ];
   }
 }
+
+
+
