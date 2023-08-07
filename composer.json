@@ -1,14 +1,14 @@
 {
-    "name": "stephane888/habeuk_utilitaire",
-    "description": "ajout des fonctionnalites utile",
-    "type": "drupal-custom-module",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "kouwa stephane",
-            "email": "kksasteph888@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {}
+  "name": "habeuk/habeuk_utilitaire",
+  "description": "ajout des fonctionnalites utile",
+  "type": "drupal-custom-module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "kouwa stephane",
+      "email": "kksasteph888@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {}
 }

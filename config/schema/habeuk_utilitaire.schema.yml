@@ -6,3 +6,14 @@ habeuk_utilitaire.settings:
     example:
       type: string
       label: 'Example'
+
+block.settings.habeuk_utilitaire_sharerxs:
+  type: block_settings
+  label: 'ShareRxs block'
+  mapping:
+    entity:
+      type: string
+      label: Entity
+    items_raw:
+      type: mapping
+      label: items_raw
