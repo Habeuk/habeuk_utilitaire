@@ -3,5 +3,4 @@ type: module
 description: Contient des fonctionnalitées additionnelle.
 package: Custom
 core_version_requirement: ^9 || ^10
-dependencies:
-  - layoutgenentitystyles
+
