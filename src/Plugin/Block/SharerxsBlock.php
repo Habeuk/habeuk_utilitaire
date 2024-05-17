@@ -90,6 +90,9 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
       'layoutgenentitystyles_view' => 'habeuk_utilitaire/square_border',
       'block_class' => 'd-flex',
       'color_class' => 'block--square_border--primary',
+      'class_item' => '',
+      'class_icon' => '',
+      'class_label' => '',
       'display_label' => true,
       'display_icone' => true,
       'rxs' => [
@@ -110,6 +113,12 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
           'icone' => '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>',
           'status' => true,
           'class' => 'habeukUtilitaireRxEmail' // dont change or update class
+        ],
+        'print' => [
+          'label' => 'print',
+          'icone' => '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"/></svg>',
+          'status' => true,
+          'class' => 'habeukUtilitaireRxPrint' // dont change or update class
         ],
         'print' => [
           'label' => 'print',
@@ -147,6 +156,21 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
         'block--square_border--background' => 'hover background'
       ]
     ];
+    $form['class_item'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t("class_item"),
+      '#default_value' => $this->configuration['class_item']
+    ];
+    $form['class_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t("class_label"),
+      '#default_value' => $this->configuration['class_label']
+    ];
+    $form['class_icon'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t("class_icon"),
+      '#default_value' => $this->configuration['class_icon']
+    ];
     return $form;
   }
   
@@ -176,6 +200,9 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
     $this->configuration['entity'] = $form_state->getValue('entity');
     $this->configuration['layoutgenentitystyles_view'] = $form_state->getValue('layoutgenentitystyles_view');
     $this->LayoutgenentitystylesServices->addStyleFromPluginBlock($this);
+    $this->configuration['class_item'] = $form_state->getValue('class_item');
+    $this->configuration['class_icon'] = $form_state->getValue('class_icon');
+    $this->configuration['class_label'] = $form_state->getValue('class_label');
   }
   
   /**
@@ -185,17 +212,18 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
   public function build() {
     $build = [];
     if ($entity = $this->currentRouteMatch->getParameter($this->configuration['entity'])) {
-      // dump($this->configuration);
       $items = [];
+      $class_item = $this->configuration['class_item'];
+      $class_icon = $this->configuration['class_icon'];
+      $class_label = $this->configuration['class_label'];
       /**
        *
        * @var \Drupal\Core\Entity\ContentEntityInterface $entity
        */
       foreach ($this->configuration['rxs'] as $rx) {
-        
         if ($rx['status']) {
           $Attribute = new Attribute();
-          $Attribute->addClass($rx['class'], 'item');
+          $Attribute->addClass($rx['class'], 'item', $class_item);
           $items[] = [
             '#theme' => 'habeuk_utilitaire_render_rx',
             '#label' => $this->configuration['display_label'] ? $this->viewValue($rx['label']) : '',
@@ -203,12 +231,14 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
             '#attributes' => $Attribute,
             '#attributes_icone' => new Attribute([
               'class' => [
-                'icone'
+                'icone',
+                $class_icon
               ]
             ]),
             '#attributes_label' => new Attribute([
               'class' => [
-                'label'
+                'label',
+                $class_label
               ]
             ])
           ];
