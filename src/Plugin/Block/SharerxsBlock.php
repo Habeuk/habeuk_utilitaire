@@ -88,7 +88,7 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
         'habeuk_utilitaire/square_border' => 'Carré avec bordure'
       ],
       'layoutgenentitystyles_view' => 'habeuk_utilitaire/square_border',
-      'block_class' => 'd-flex',
+      'block_class' => 'd-flex flex-wrap',
       'color_class' => 'block--square_border--primary',
       'class_item' => '',
       'class_icon' => '',
@@ -156,6 +156,11 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
         'block--square_border--background' => 'hover background'
       ]
     ];
+    $form['block_class'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t("block_class"),
+      '#default_value' => $this->configuration['block_class']
+    ];
     $form['class_item'] = [
       '#type' => 'textfield',
       '#title' => $this->t("class_item"),
@@ -200,6 +205,7 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
     $this->configuration['entity'] = $form_state->getValue('entity');
     $this->configuration['layoutgenentitystyles_view'] = $form_state->getValue('layoutgenentitystyles_view');
     $this->LayoutgenentitystylesServices->addStyleFromPluginBlock($this);
+    $this->configuration['block_class'] = $form_state->getValue('block_class');
     $this->configuration['class_item'] = $form_state->getValue('class_item');
     $this->configuration['class_icon'] = $form_state->getValue('class_icon');
     $this->configuration['class_label'] = $form_state->getValue('class_label');
