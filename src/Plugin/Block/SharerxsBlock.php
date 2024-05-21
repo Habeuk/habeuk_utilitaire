@@ -252,11 +252,15 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
       }
       $Attribute = new Attribute();
       $ar = explode("/", $this->configuration['layoutgenentitystyles_view']);
-      $Attribute->addClass('block--' . $ar[1], $this->configuration['block_class'], $this->configuration['color_class']);
+      $Attribute->addClass('sharerx-entities', 'block--' . $ar[1], $this->configuration['block_class'], $this->configuration['color_class']);
       $build['content'] = [
         '#theme' => 'habeuk_utilitaire_render_rxs',
         '#items' => $items,
         '#attributes' => $Attribute
+      ];
+      // on passe les données configurations.
+      $build['#attached']['drupalSettings']['habeuk_utilitaire'] = [
+        'facebook_api_id' => theme_get_setting('facebook-api-id')
       ];
     }
     return $build;
