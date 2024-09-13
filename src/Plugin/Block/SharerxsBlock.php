@@ -74,7 +74,8 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('entity_type.manager'), $container->get('current_route_match'), $container->get('layoutgenentitystyles.add.style.theme'));
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('entity_type.manager'), $container->get('current_route_match'), $container->get(
+      'layoutgenentitystyles.add.style.theme'));
   }
   
   /**
@@ -277,5 +278,4 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
       ]
     ];
   }
-  
 }
