@@ -78,6 +78,13 @@ function habeuk_utilitaire_theme($existing, $type, $theme, $path) {
         'items' => [],
         'attributes' => []
       ]
+    ],
+    'habeuk_utilitaire_backlink' => [
+      'variables' => [
+        'link' => [],
+        'attributes' => [],
+        'icone' => null
+      ]
     ]
   ];
 }
