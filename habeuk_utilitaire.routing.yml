@@ -22,3 +22,11 @@ entity.paragraph.canonical:
     _title: 'paragraph view canonical'
   requirements:
     _role: 'administrator'
+
+habeuk_utilitaire.submit_validation:
+  path: '/admin/config/system/submit-validation'
+  defaults:
+    _title: 'Submit validation'
+    _form: 'Drupal\habeuk_utilitaire\Form\SubmitValidationForm'
+  requirements:
+    _permission: 'administer site configuration'

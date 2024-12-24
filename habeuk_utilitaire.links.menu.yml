@@ -4,3 +4,9 @@ habeuk_utilitaire.settings_form:
   parent: system.admin_config_system
   route_name: habeuk_utilitaire.settings_form
   weight: 10
+
+habeuk_utilitaire.submit_validation:
+  title: Submit validation
+  parent: system.admin_config_system
+  route_name: habeuk_utilitaire.submit_validation
+  weight: 10

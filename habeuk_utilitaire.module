@@ -1,4 +1,5 @@
 <?php
+use Drupal\Component\Utility\Crypt;
 
 /**
  *
@@ -7,6 +8,61 @@
  */
 
 // https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Entity%21entity.api.php/group/entity_crud/10
+
+/**
+ * Implements hook_form_alter().
+ */
+function habeuk_utilitaire_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if (\Drupal::currentUser()->isAnonymous()) {
+    /**
+     *
+     * @var \Symfony\Component\HttpFoundation\Session\Session $session
+     */
+    $session = \Drupal::service('session');
+    $key = 'habeuk_utilitaire_validate_form' . $form_id;
+    if (!$session->has($key)) {
+      $control = [
+        'time' => time(),
+        'try' => 0
+      ];
+      $session->set($key, $control);
+    }
+    else {
+      $control = $session->get($key);
+      $control['try']++;
+      $session->set($key, $control);
+    }
+    $form_state->set('time_variable', $control['time']);
+    $form_state->set('user_force_try', $control['try']);
+    $form_state->set('habeuk_utilitaire_key', $key);
+    $form['#validate'][] = '_habeuk_utilitaire_form_validate_time';
+  }
+}
+
+function _habeuk_utilitaire_form_validate_time($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $time = $form_state->get('time_variable');
+  $user_force_try = $form_state->get('user_force_try');
+  $time_to_wait = 10;
+  if ($user_force_try) {
+    $time_to_wait = $user_force_try * $time_to_wait;
+  }
+  $result = time() - ($time + $time_to_wait);
+  if ($result <= 0) {
+    $form_state->setErrorByName('', t('You are submitting the form too quickly. Please wait a :time_to_wait seconds.', [
+      ':time_to_wait' => $time_to_wait
+    ]));
+    \Drupal::logger('habeuk_utilitaire')->error('Form sumitted protect. User is submitting the form too quickly.');
+  }
+  else {
+    /**
+     *
+     * @var \Symfony\Component\HttpFoundation\Session\Session $session
+     */
+    $session = \Drupal::service('session');
+    $key = $form_state->get('habeuk_utilitaire_key');
+    $session->remove($key);
+  }
+}
 
 /**
  *

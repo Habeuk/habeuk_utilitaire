@@ -17,3 +17,12 @@ block.settings.habeuk_utilitaire_sharerxs:
     items_raw:
       type: mapping
       label: items_raw
+
+# Schema for the configuration files of the habeuk utilitaire module.
+habeuk_utilitaire.submit_validation:
+  type: config_object
+  label: 'habeuk utilitaire submit validation'
+  mapping:
+    example:
+      type: string
+      label: 'Example'
