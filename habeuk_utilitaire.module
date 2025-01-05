@@ -13,7 +13,7 @@ use Drupal\Component\Utility\Crypt;
  * Implements hook_form_alter().
  */
 function habeuk_utilitaire_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  $config = \Drupal::config('habeuk_utilitaire.settings');
+  $config = \Drupal::config('habeuk_utilitaire.settings')->getRawData();
   if (!empty($config['enable']) && $config['time_to_wait'] > 0 && \Drupal::currentUser()->isAnonymous()) {
     /**
      *
