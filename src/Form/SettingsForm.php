@@ -9,51 +9,61 @@ use Drupal\Core\Form\FormStateInterface;
  * Configure habeuk utilitaire settings for this site.
  */
 class SettingsForm extends ConfigFormBase {
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'habeuk_utilitaire_settings';
   }
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['habeuk_utilitaire.settings'];
+    return [
+      'habeuk_utilitaire.settings'
+    ];
   }
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['example'] = [
-      '#type' => 'textfield',
+    $form['enable'] = [
+      '#type' => 'checkbox',
       '#title' => $this->t('Example'),
-      '#default_value' => $this->config('habeuk_utilitaire.settings')->get('example'),
+      '#default_value' => $this->config('habeuk_utilitaire.settings')->get('enable')
+    ];
+    $form['time_to_wait'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('time_to_wait'),
+      '#default_value' => $this->config('habeuk_utilitaire.settings')->get('time_to_wait')
     ];
     return parent::buildForm($form, $form_state);
   }
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('example') != 'example') {
-      $form_state->setErrorByName('example', $this->t('The value is not correct.'));
-    }
     parent::validateForm($form, $form_state);
   }
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('habeuk_utilitaire.settings')
-      ->set('example', $form_state->getValue('example'))
-      ->save();
+    $values = $form_state->getValues();
+    $config = $this->config('habeuk_utilitaire.settings');
+    $config->set('enable', $values['enable']);
+    $config->set('time_to_wait', $values['time_to_wait']);
+    $config->save();
     parent::submitForm($form, $form_state);
   }
-
 }
