@@ -14,7 +14,6 @@ use Drupal\Component\Utility\Crypt;
  */
 function habeuk_utilitaire_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   $config = \Drupal::config('habeuk_utilitaire.settings')->getRawData();
-  $config['time_to_wait'] = (int) $config['time_to_wait'];
   if (!empty($config['enable']) && $config['time_to_wait'] > 0 && \Drupal::currentUser()->isAnonymous()) {
     /**
      *
@@ -37,6 +36,7 @@ function habeuk_utilitaire_form_alter(&$form, \Drupal\Core\Form\FormStateInterfa
     }
     $form_state->set('time_variable', $control['time']);
     $form_state->set('user_force_try', $control['try']);
+    $form_state->set('time_to_wait', $control['time_to_wait']);
     $form_state->set('habeuk_utilitaire_key', $key);
     $form['#validate'][] = '_habeuk_utilitaire_form_validate_time';
   }
@@ -45,7 +45,7 @@ function habeuk_utilitaire_form_alter(&$form, \Drupal\Core\Form\FormStateInterfa
 function _habeuk_utilitaire_form_validate_time($form, \Drupal\Core\Form\FormStateInterface $form_state) {
   $time = $form_state->get('time_variable');
   $user_force_try = $form_state->get('user_force_try');
-  $time_to_wait = $form_state->get('time_to_wait') > 0 ? $form_state->get('time_to_wait') : 3;
+  $time_to_wait = $form_state->get('time_to_wait');
   if ($user_force_try) {
     $time_to_wait = $user_force_try * $time_to_wait;
   }

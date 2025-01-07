@@ -39,7 +39,7 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $this->config('habeuk_utilitaire.settings')->get('enable')
     ];
     $form['time_to_wait'] = [
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#title' => $this->t('Time to wait'),
       '#default_value' => $this->config('habeuk_utilitaire.settings')->get('time_to_wait')
     ];
@@ -62,7 +62,7 @@ class SettingsForm extends ConfigFormBase {
     $values = $form_state->getValues();
     $config = $this->config('habeuk_utilitaire.settings');
     $config->set('enable', $values['enable']);
-    $config->set('time_to_wait', $values['time_to_wait']);
+    $config->set('time_to_wait', intval($values['time_to_wait']));
     $config->save();
     parent::submitForm($form, $form_state);
   }
