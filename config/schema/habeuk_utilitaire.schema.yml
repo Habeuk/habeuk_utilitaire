@@ -23,6 +23,9 @@ habeuk_utilitaire.submit_validation:
   type: config_object
   label: 'habeuk utilitaire submit validation'
   mapping:
-    example:
-      type: string
-      label: 'Example'
+    enable:
+      type: integer
+      label: 'Enable'
+    time_to_wait:
+      type: integer
+      label: 'Time to wait'

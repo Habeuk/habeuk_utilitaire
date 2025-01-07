@@ -35,12 +35,12 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['enable'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Example'),
+      '#title' => $this->t('Enable'),
       '#default_value' => $this->config('habeuk_utilitaire.settings')->get('enable')
     ];
     $form['time_to_wait'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('time_to_wait'),
+      '#title' => $this->t('Time to wait'),
       '#default_value' => $this->config('habeuk_utilitaire.settings')->get('time_to_wait')
     ];
     return parent::buildForm($form, $form_state);
