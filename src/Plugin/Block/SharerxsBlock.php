@@ -263,6 +263,10 @@ class SharerxsBlock extends BlockBase implements ContainerFactoryPluginInterface
         if ($rx['status']) {
           $Attribute = new Attribute();
           $Attribute->addClass($rx['class'], 'item', $class_item);
+          $Attribute->setAttribute('href', "#");
+          $Attribute->setAttribute('aria-label', "partager sur " . $rx['label']);
+          $Attribute->setAttribute('title', "partager sur " . $rx['label']);
+          $Attribute->setAttribute('rel', "noopener noreferrer");
           $items[] = [
             '#theme' => 'habeuk_utilitaire_render_rx',
             '#label' => $this->configuration['display_label'] ? $this->viewValue($rx['label']) : '',
